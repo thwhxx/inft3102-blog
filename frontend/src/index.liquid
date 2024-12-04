@@ -1,0 +1,45 @@
+---
+layout: default.liquid
+title: My 11ty Sample
+---
+<section class="hero">
+ <h1 class="title">Hi everyone!</h1> 
+ <blockquote><p>Technology is best when it brings people together, and development is most rewarding when it makes a difference in people's lives. Every line of code we write has the potential to enhance someone's digital experience.</p><cite>Anh Thu Huynh</cite></blockquote>
+
+<section class="latest-posts container">
+    <h2 class="subtitle-1">Latest Posts</h2>
+    {% assign sortedPosts = collections.strapiPosts | sort: "date" | reverse %}
+    {% for post in sortedPosts limit:2 %}
+        <article class="posts">
+            <h2>{{ post.title }}</h2>
+            
+            <div class="post-meta">
+                <small>
+                    <em>Posted on: {{ post.date | postDate }}</em>
+                </small>
+
+                {% if post.tags.size > 0 %}
+                <ul role="list" class="tags">
+                    {% for tag in post.tags %}
+                        <li>
+                            <a href="{{ '/tags/' | append: tag | url }}" class="tag">{{ tag }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            {% if post.excerpt %}
+                {{ post.excerpt | md }}
+            {% endif %}
+            
+            <a href="{{ '/posts/' | append: post.slug | url }}" class="read-more">Read more</a>
+        </article>
+        {% unless forloop.last %}<hr />{% endunless %}
+    {% endfor %}
+
+    <div class="view-all">
+        <a href="{{ '/posts/' | url }}" class="read-more">View All Posts</a>
+    </div>
+</section>
+

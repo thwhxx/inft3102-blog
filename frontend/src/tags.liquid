@@ -1,0 +1,66 @@
+---
+layout: pages.liquid
+pagination:
+  data: collections.tagList
+  size: 1
+  alias: tag
+permalink: "/tags/{{ tag }}/"
+---
+
+<section class="container posts">
+    <h1 class="title">Posts tagged "{{ tag }}"</h1>
+
+    {% assign taggedPosts = collections.postsByTag[tag] %}
+    {% if taggedPosts.size > 0 %}
+        {% assign sortedPosts = taggedPosts | sort: "date" | reverse %}
+        {% for post in sortedPosts %}
+        <article class="article">
+            <h2>{{ post.title }}</h2>
+            <small> 
+                <em>Posted on: {{ post.date | postDate }}</em> 
+            </small>
+            
+            <ul role="list" class="tags">
+                {% for postTag in post.tags %}
+                    <li>
+                        <a href="{{ '/tags/' | append: postTag | url }}" 
+                           class="tag {% if postTag == tag %}active{% endif %}">
+                            {{ postTag }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {% if post.excerpt %}
+                {{ post.excerpt | md }}
+            {% endif %}
+
+            <div>
+                <a href="{{ '/posts/' | append: post.slug | url }}" class="read-more">Read More</a>
+            </div>
+        </article>
+        <hr />
+        {% endfor %}
+    {% else %}
+        <p>No posts found with tag "{{ tag }}"</p>
+    {% endif %}
+
+    <div class="tag-navigation">
+        <a href="{{ '/posts/' | url }}" class="read-more">← Back to All Posts</a>
+
+        <div class="all-tags">
+            <h2>All Tags:</h2>
+            <ul role="list" class="tags">
+                {% assign sortedTags = collections.tagList | sort %}
+                {% for tagItem in sortedTags %}
+                    <li>
+                        <a href="{{ '/tags/' | append: tagItem | url }}" 
+                           class="tag {% if tagItem == tag %}active{% endif %}">
+                            {{ tagItem }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>

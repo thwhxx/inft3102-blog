@@ -1,0 +1,301 @@
+/* @import url('https://api.fonts.coollabs.io/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap'); */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --ff-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+  font-family: var(--ff-body);
+  background-color: #fdfcfa;
+  color: #1d1e20;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+.container {
+  --content-max-width: 1000px;
+  --padding-inline: 2rem;
+
+  margin-inline: auto;
+  width: min(var(--content-max-width), 100% - (var(--padding-inline)));
+}
+
+section {
+  margin: 5em 0;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+.posts {
+  margin: 2em 0;
+  border: none;
+  border-radius: 5px;
+  /* padding: 2em; */
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: clamp(1.12rem, calc(0.5rem + 0.5vw), 1.15rem);
+  text-decoration: none;
+}
+
+.nav__list {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1em;
+}
+
+a,
+.nav__link {
+  color: #1d1e20;
+  text-decoration: none;
+  font-size: clamp(1.12rem, calc(0.25rem + 0.5vw), 1.15rem);
+}
+
+article {
+  max-width: 70ch;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 5em;
+}
+
+em {
+  padding-right: 1em;
+}
+
+.read-more {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  min-height: 40px;
+  background-color: #231942;
+  color: white;
+  padding: 0.25em 1em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 10ch;
+  border: none;
+  border-radius: 5px;
+  margin: 2em 0;
+  text-decoration: none;
+}
+
+.posts .read-more {
+  margin: 2em 0 0.5em 0;
+}
+
+.title {
+  font-size: clamp(1.25rem, 1rem + 5vw, 3rem);
+  line-height: 1.2;
+}
+
+blockquote {
+  /* font-family: 'Playfair Display', serif; */
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  border-left: 10px solid #ffd700;
+  padding-left: 1em;
+  margin-left: 0;
+  position: relative;
+}
+
+blockquote p::before {
+  content: "\201c";
+  position: absolute;
+  left: 0.5em;
+}
+
+blockquote p::after {
+  content: "\201d";
+  position: absolute;
+}
+
+cite {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  padding: 2em 0;
+}
+
+.subtitle-1 {
+  font-size: 1.9rem;
+}
+
+ul[role="list"] {
+  padding: 0;
+}
+
+.tags {
+  margin-top: 0.5rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+.tag {
+  background-color: #b64eb6;
+  color: white;
+  padding: 0.25em 0.5em;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Optional: Add this if you want to ensure consistent spacing */
+.tags li {
+  margin: 0;
+  padding: 0;
+}
+
+/* For tag lists in the sidebar or bottom sections */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
+  padding: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 1em;
+}
+
+.social__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+}
+
+.nav-pagination {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.pagination-link {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  color: #4a5568;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.pagination-link:hover {
+  background-color: #f7fafc;
+}
+
+.pagination-link.active {
+  background-color: #4a5568;
+  color: white;
+  border-color: #4a5568;
+}
+
+.pagination-ellipsis {
+  padding: 0.5rem;
+  color: #4a5568;
+}
+
+footer p {
+  margin-inline: auto;
+}

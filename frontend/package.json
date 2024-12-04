@@ -1,0 +1,26 @@
+{
+  "name": "eleventy-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "postcss src/styles.css -o dist/styles.css",
+    "build": "npx @11ty/eleventy",
+    "dev": "npx @11ty/eleventy --serve",
+    "check-env": "node scripts/check-env.js",
+    "test-trapi-img": "node scripts/test-strapi-images.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  },
+  "dependencies": {
+    "@11tyrocks/eleventy-plugin-emoji-readtime": "^1.0.1",
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^3.3.2"
+  }
+}

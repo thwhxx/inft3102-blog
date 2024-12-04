@@ -1,0 +1,90 @@
+---
+layout: default.liquid
+pagination:
+  data: collections.strapiPosts
+  size: 1
+  alias: post
+permalink: "/posts/{{ post.slug }}/"
+---
+
+<article class="article">
+    <h1 class="title">{{ post.title }}</h1>
+
+    {% comment %}
+    Post image data: {{ post.image | json }}
+    {% endcomment %}
+    
+    {% if post.image and post.image.url %}
+    <div class="post-hero">
+        <img 
+            src="{{ post.image.url }}"
+            alt="{{ post.title }}"
+            class="hero-image"
+            loading="lazy"
+            onerror="console.log('Image failed to load:', this.src); this.style.display='none';"
+        >
+    </div>
+    {% endif %}
+    
+    <div class="post-meta">
+        <small> 
+            <em>Posted on: {{ post.date | postDate }}</em>
+        </small>
+
+        {% if post.tags.size > 0 %}
+        <ul role="list" class="tags">
+            {% for tag in post.tags %}
+                <li>
+                    <a href="{{ '/tags/' | append: tag | url }}" class="tag">{{ tag }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <div class="content">
+        {{ post.content | replace: '\n', '
+' | replace: '\\n', '
+' | md }}
+    </div>
+</article>
+
+<style>
+.post-meta {
+    margin: 1rem 0;
+}
+
+.tags {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.tag {
+    background: #8a4baf;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    text-decoration: none;
+}
+
+.content {
+    line-height: 1.6;
+}
+
+.content h1, .content h2, .content h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.content ul, .content ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.content p {
+    margin: 1rem 0;
+}
+</style>

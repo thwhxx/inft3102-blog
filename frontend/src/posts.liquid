@@ -1,0 +1,86 @@
+---
+layout: pages.liquid
+pagination: 
+    data: collections.strapiPosts
+    size: 2
+    alias: posts
+    reverse: true
+---
+
+<section class="container posts">
+    <h1 class="title">Latest Posts</h1>
+
+    {% assign sortedPosts = posts | sort: "date" | reverse %}
+    {% for post in sortedPosts %}
+    <article class="article">
+        <h2>{{ post.title }}</h2>
+        <small> 
+            <em>Posted on: {{ post.date | postDate }}</em> 
+        </small>
+        
+        <ul role="list" class="tags">
+            {% for tag in post.tags %}
+                <li>
+                    <a href="{{ '/tags/' | append: tag | url }}" 
+                       class="tag">
+                        {{ tag }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if post.excerpt %}
+            {{ post.excerpt | md }}
+        {% endif %}
+
+        <div>
+            <a href="{{ '/posts/' | append: post.slug | url }}" class="read-more">Read More</a>
+        </div>
+    </article>
+    <hr />
+    {% endfor %}
+
+    {% if pagination.pages.size > 1 %}
+    <nav class="nav" aria-label="Blog post navigation">
+        <ol role="list" class="nav-pagination">
+            {% if pagination.href.previous %}
+                <li>
+                    <a href="{{ pagination.href.previous | url }}" class="pagination-link">← Previous</a>
+                </li>
+            {% endif %}
+
+            {% for pageEntry in pagination.pages %}
+                <li>
+                    <a href="{{ pagination.hrefs[forloop.index0] }}" 
+                       class="pagination-link {% if page.url == pagination.hrefs[forloop.index0] %}active{% endif %}">
+                        {{ forloop.index }}
+                    </a>
+                </li>
+            {% endfor %}
+
+            {% if pagination.href.next %}
+                <li>
+                    <a href="{{ pagination.href.next | url }}" class="pagination-link">Next →</a>
+                </li>
+            {% endif %}
+        </ol>
+    </nav>
+    {% endif %}
+</section>
+
+{% comment %}
+<!-- Include all available tags at the bottom -->
+<div class="all-tags">
+    <h2>Browse by Tag:</h2>
+    <ul role="list" class="tags">
+        {% assign allTags = collections.tagList | sort %}
+        {% for tag in allTags %}
+            <li>
+                <a href="{{ '/tags/' | append: tag | url }}" class="tag">
+                    {{ tag }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endcomment %}
