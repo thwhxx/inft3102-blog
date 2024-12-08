@@ -1,28 +1,40 @@
-document
-  .getElementById("contactForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
+document.getElementById("contactForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    const formData = new FormData(this);
-    const spinner = document.getElementById("spinner");
-    const responseMessage = document.getElementById("responseMessage");
+  // Show spinner, hide form
+  document.getElementById("contactForm").style.display = "none";
+  document.getElementById("spinner").style.display = "flex";
 
-    // Hide form and show spinner
-    this.style.display = "none";
-    spinner.style.display = "block";
+  // Get form data
+  const formData = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    subject: document.getElementById("subject").value,
+    message: document.getElementById("message").value,
+  };
 
-    fetch("/your-serverless-function-endpoint", {
+  try {
+    const response = await fetch("/.netlify/functions/contact", {
       method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Hide spinner and show response message
-        spinner.style.display = "none";
-        responseMessage.style.display = "block";
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Handle error case
-      });
-  });
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      // Hide spinner, show success message
+      document.getElementById("spinner").style.display = "none";
+      document.getElementById("success").style.display = "block";
+    } else {
+      throw new Error("Failed to send message");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Sorry, there was an error sending your message. Please try again.");
+    // Show form again, hide spinner
+    document.getElementById("contactForm").style.display = "block";
+    document.getElementById("spinner").style.display = "none";
+  }
+});
