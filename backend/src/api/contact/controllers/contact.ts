@@ -2,8 +2,7 @@
  * contact controller
  */
 import { factories } from "@strapi/strapi";
-const mailchimp = require("@mailchimp/mailchimp_marketing");
-const crypto = require("crypto");
+const sgMail = require("@sendgrid/mail");
 
 export default factories.createCoreController(
   "api::contact.contact",
@@ -12,62 +11,73 @@ export default factories.createCoreController(
       try {
         // Create entry in Strapi first
         const response = await super.create(ctx);
+        const contactData = response.data;
 
-        // Get the created entry data - notice the change here
-        const contactData = response.data; // Removed .attributes
-
-        // Configure Mailchimp
-        mailchimp.setConfig({
-          apiKey: process.env.MAILCHIMP_API_KEY,
-          server: process.env.MAILCHIMP_SERVER_PREFIX,
-        });
+        // Configure SendGrid
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
         try {
-          // Generate MD5 hash of lowercase email address
-          const subscriberHash = crypto
-            .createHash("md5")
-            .update(contactData.email.toLowerCase())
-            .digest("hex");
+          // Prepare admin notification email
+          const adminMsg = {
+            to: "dalthiennhanontop@gmail.com",
+            from: "dalthiennhanontop@gmail.com", // Must be verified in SendGrid
+            subject: `New Contact Form Submission: ${contactData.subject}`,
+            html: `
+              <h2>New Contact Form Submission</h2>
+              <p><strong>Name:</strong> ${contactData.name}</p>
+              <p><strong>Email:</strong> ${contactData.email}</p>
+              <p><strong>Phone:</strong> ${contactData.phone || "Not provided"}</p>
+              <p><strong>Subject:</strong> ${contactData.subject}</p>
+              <p><strong>Message:</strong></p>
+              <p>${contactData.message}</p>
+            `,
+          };
 
-          // Update or create Mailchimp subscriber
-          const mailchimpResponse = await mailchimp.lists.setListMember(
-            process.env.MAILCHIMP_LIST_ID,
-            subscriberHash,
-            {
-              email_address: contactData.email,
-              status_if_new: "subscribed",
-              merge_fields: {
-                FNAME: contactData.name,
-                PHONE: contactData.phone,
-              },
-            }
-          );
+          // Prepare user confirmation email
+          const userMsg = {
+            to: contactData.email,
+            from: "dalthiennhanontop@gmail.com", // Must be verified in SendGrid
+            subject: "Thank you for contacting us",
+            html: `
+              <h2>Thank you for contacting us</h2>
+              <p>Dear ${contactData.name},</p>
+              <p>We have received your message and will get back to you as soon as possible.</p>
+              <p>Here's a copy of your message:</p>
+              <p><strong>Subject:</strong> ${contactData.subject}</p>
+              <p><strong>Message:</strong></p>
+              <p>${contactData.message}</p>
+              <p>Best regards,<br>Your Team</p>
+            `,
+          };
 
-          console.log("Mailchimp response:", mailchimpResponse);
+          console.log("Attempting to send emails...");
+
+          // Send both emails
+          await Promise.all([sgMail.send(adminMsg), sgMail.send(userMsg)]);
+
+          console.log("Emails sent successfully");
 
           return {
             data: contactData,
             meta: {
-              message:
-                "Contact form submitted and newsletter subscription updated",
+              message: "Contact form submitted and emails sent successfully",
             },
           };
-        } catch (mailchimpError) {
-          console.error(
-            "Mailchimp Error:",
-            mailchimpError.response?.text || mailchimpError
-          );
-
+        } catch (emailError) {
+          console.error("Failed to send emails:", emailError);
+          if (emailError.response) {
+            console.error(emailError.response.body);
+          }
           return {
             data: contactData,
             meta: {
-              message:
-                "Contact form submitted but newsletter subscription failed",
+              message: "Contact form submitted but email sending failed",
+              error: emailError.message,
             },
           };
         }
       } catch (error) {
-        console.error("Error details:", error);
+        console.error("Error creating contact entry:", error);
         return ctx.badRequest(error);
       }
     },

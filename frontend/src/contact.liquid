@@ -3,78 +3,42 @@ layout: pages.liquid
 permalink: /contact/
 ---
 
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold mb-8">Contact</h1>
-
-    <form id="contactForm" class="max-w-lg space-y-6">
-        <div>
-            <label for="name" class="block text-sm font-medium mb-2">Your Name</label>
-            <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                required 
-                class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-        </div>
-
-        <div>
-            <label for="email" class="block text-sm font-medium mb-2">Email Address</label>
-            <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required 
-                class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-        </div>
-
-        <div>
-            <label for="phone" class="block text-sm font-medium mb-2">Phone Number</label>
-            <input 
-                type="tel" 
-                id="phone" 
-                name="phone" 
-                required 
-                class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-        </div>
-
-        <div>
-            <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
-            <input 
-                type="text" 
-                id="subject" 
-                name="subject" 
-                required 
-                class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-        </div>
-
-        <div>
-            <label for="message" class="block text-sm font-medium mb-2">Message</label>
-            <textarea 
-                id="message" 
-                name="message" 
-                rows="4" 
-                required 
-                class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            ></textarea>
-        </div>
-
-        <button 
-            type="submit" 
-            class="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition duration-200"
-        >
-            Send Message
-        </button>
-    </form>
-
-    <div id="spinner" class="hidden mt-8 flex justify-center">
-        <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
+<link rel="stylesheet" href="/css/contact.css">
+<div class="contact-container">
+  <h1>Contact Us</h1>
+  <p class="contact-intro">We'd love to hear from you. Please fill out the form below and we'll get back to you as soon as possible.</p>
+  
+  <form id="contactForm" class="contact-form">
+    <div class="form-group">
+      <label for="name">Name *</label>
+      <input type="text" id="name" name="name" required>
     </div>
 
-    <div id="success" class="hidden mt-8 p-4 bg-green-100 text-green-700 rounded-md text-center">
-        Thanks for reaching out. We'll get back to you soon!
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" required>
     </div>
+
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone">
+    </div>
+
+    <div class="form-group">
+      <label for="subject">Subject *</label>
+      <input type="text" id="subject" name="subject" required>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message *</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+
+    <div class="form-status" role="alert"></div>
+
+    <button type="submit" class="submit-button">
+      <span class="button-text">Send Message</span>
+      <span class="button-loader">Sending...</span>
+    </button>
+  </form>
 </div>
