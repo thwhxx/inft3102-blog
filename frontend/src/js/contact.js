@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const setLoading = (isLoading) => {
     submitButton.disabled = isLoading;
     buttonText.style.display = isLoading ? "none" : "block";
-    buttonLoader.style.display = isLoading ? "block" : "none";
+    // buttonLoader.style.display = isLoading ? "block" : "none";
   };
 
   const setStatus = (message, isError = false) => {
