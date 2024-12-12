@@ -14,6 +14,7 @@ RUN npm run build
 # Environment variables
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
+ENV PORT=10000
 
-# Use the PORT environment variable from Cloud Run
-CMD PORT=$PORT npm start
+# Start command
+CMD ["npm", "start"]

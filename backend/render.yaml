@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: strapi-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.0.0
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_CLIENT
+        value: postgres
+      - key: DATABASE_URL
+        fromDatabase:
+          name: strapi_db
+          property: connectionString
+      - key: JWT_SECRET
+        value: qm4jxataFoD8xXjHpYzdLw==
+      - key: ADMIN_JWT_SECRET
+        value: VGpl+9tq6Cza7KTU3kb1uQ==
+      - key: APP_KEYS
+        value: 3aKH7tln0Kas+IiHFCvGVA==,BH9WX+2hSirUtldHX2qNgg==,lqp0hFRHnR79dbvmrbk87Q==,UiaUzofXvBvG7HRJP2RbMw==
+      - key: API_TOKEN_SALT
+        value: zSeQJhiS2wxcYOcVmqBQrw==
+      - key: SENDGRID_API_KEY
+        value: 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
+      - key: SENDGRID_FROM_EMAIL
+        value: dalthiennhanontop@gmail.com
+      - key: ADMIN_EMAIL
+        value: dalthiennhanontop@gmail.com
+
+databases:
+  - name: strapi_db
+    plan: free
+    ipAllowList: []

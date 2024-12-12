@@ -1,7 +1,0 @@
-node_modules
-.env
-.git
-.tmp
-.cache
-build
-.DS_Store
