@@ -7,7 +7,9 @@ module.exports = ({ env }) => {
       connection: isProduction
         ? {
             connectionString: env("DATABASE_URL"),
-            ssl: { rejectUnauthorized: env.bool("DATABASE_SSL", true) },
+            ssl: env.bool("DATABASE_SSL", true)
+              ? { rejectUnauthorized: false }
+              : false,
           }
         : {
             host: env("DATABASE_HOST", "127.0.0.1"),
