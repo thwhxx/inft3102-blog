@@ -1,7 +1,7 @@
 // config.js
 const config = {
   production: {
-    STRAPI_URL: "https://strapi-backend-21185052417.us-central1.run.app",
+    STRAPI_URL: "https://inft3102-blog-backend.onrender.com",
   },
   development: {
     STRAPI_URL: "http://localhost:1337",
