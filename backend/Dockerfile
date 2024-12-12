@@ -15,6 +15,10 @@ RUN npm run build
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=10000
+ENV DATABASE_CLIENT=postgres
+
+# Expose the port
+EXPOSE 10000
 
 # Start command
 CMD ["npm", "start"]
