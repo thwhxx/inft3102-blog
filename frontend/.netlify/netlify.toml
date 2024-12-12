@@ -1,0 +1,33 @@
+functionsDirectory = "S:\\DC\\inft3102\\huynha_assignment3\\frontend\\netlify\\functions"
+functionsDirectoryOrigin = "config"
+plugins = []
+headers = []
+redirects = []
+
+[build]
+publish = "S:\\DC\\inft3102\\huynha_assignment3\\frontend\\dist"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "S:\\DC\\inft3102\\huynha_assignment3\\frontend"
+command = "npm run build"
+functions = "S:\\DC\\inft3102\\huynha_assignment3\\frontend\\netlify\\functions"
+
+[build.environment]
+NODE_VERSION = "18"
+
+[build.processing]
+skip_processing = false
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[functions]
+
+[functions."*"]

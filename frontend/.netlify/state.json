@@ -1,0 +1,21 @@
+{
+	"siteId": "4e1eee49-c337-4c79-979c-b55f4bac9327",
+	"geolocation": {
+		"data": {
+			"city": "Oshawa",
+			"country": {
+				"code": "CA",
+				"name": "Canada"
+			},
+			"subdivision": {
+				"code": "ON",
+				"name": "Ontario"
+			},
+			"timezone": "America/Toronto",
+			"latitude": 43.9228,
+			"longitude": -78.8693,
+			"postalCode": "L1G"
+		},
+		"timestamp": 1733790235001
+	}
+}

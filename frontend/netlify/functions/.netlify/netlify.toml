@@ -1,0 +1,13 @@
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[build.processing]
+  skip_processing = false
+
+[functions]
+  directory = "netlify/functions"
