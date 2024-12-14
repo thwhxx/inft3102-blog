@@ -7,10 +7,16 @@
     "build": "eleventy"
   },
   "dependencies": {
-    "@11ty/eleventy": "^3.0.0",
-    "@11tyrocks/eleventy-plugin-emoji-readtime": "^1.0.0",
-    "@sendgrid/mail": "^7.7.0",
-    "luxon": "^3.4.4",
-    "markdown-it": "^14.0.0"
+    "@strapi/strapi": "^5.5.1",
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11tyrocks/eleventy-plugin-emoji-readtime": "^1.0.1",
+    "luxon": "^3.5.0",
+    "markdown-it": "^14.1.0"
   }
 }
