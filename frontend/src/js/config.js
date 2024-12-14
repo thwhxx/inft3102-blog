@@ -1,10 +1,25 @@
-// config.js
+// // config.js
+// const config = {
+//   production: {
+//     STRAPI_URL: "https://inft3102-blog-backend.onrender.com",
+//   },
+//   development: {
+//     STRAPI_URL: "http://localhost:1337",
+//   },
+// };
+
+// const ENV =
+//   document.location.hostname === "localhost" ? "development" : "production";
+
+// export default config[ENV];
+
+// frontend/src/js/config.js
 const config = {
   production: {
-    STRAPI_URL: "https://inft3102-blog-backend.onrender.com",
+    API_URL: "/.netlify/functions",
   },
   development: {
-    STRAPI_URL: "http://localhost:1337",
+    API_URL: "/.netlify/functions", // Same for local development with netlify dev
   },
 };
 

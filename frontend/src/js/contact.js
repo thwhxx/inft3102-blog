@@ -1,3 +1,4 @@
+// frontend/src/js/contact.js
 import config from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -56,7 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       console.log("Submitting form data:", formData);
 
-      const response = await fetch(`${config.STRAPI_URL}/api/contact`, {
+      // Updated to use Netlify function
+      const response = await fetch("/.netlify/functions/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,14 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       console.log("Response status:", response.status);
 
-      let result;
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        result = await response.json();
-      } else {
-        result = await response.text();
-      }
-
+      const result = await response.json();
       console.log("Response data:", result);
 
       if (!response.ok) {
