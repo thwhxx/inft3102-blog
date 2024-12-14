@@ -3,6 +3,8 @@ const { DateTime } = require("luxon");
 const emojiReadTime = require("@11tyrocks/eleventy-plugin-emoji-readtime");
 const fs = require("fs");
 
+const csp = "default-src 'self'; style-src 'self' 'unsafe-inline';";
+
 module.exports = (eleventyConfig) => {
   eleventyConfig.addPassthroughCopy("./src/css");
   eleventyConfig.addPassthroughCopy("./src/js");

@@ -16,10 +16,11 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
+    "@11tyrocks/eleventy-plugin-emoji-readtime": "^1.0.1",
+    "luxon": "^3.5.0",
     "markdown-it": "^14.1.0"
   },
   "dependencies": {
-    "@11tyrocks/eleventy-plugin-emoji-readtime": "^1.0.1",
     "@strapi/strapi": "^5.5.1",
     "axios": "^1.7.7",
     "cors": "^2.8.5",
