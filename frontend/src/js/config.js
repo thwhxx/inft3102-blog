@@ -19,7 +19,7 @@ const config = {
     API_URL: "/.netlify/functions",
   },
   development: {
-    API_URL: "/.netlify/functions", // Same for local development with netlify dev
+    API_URL: "/.netlify/functions",
   },
 };
 
