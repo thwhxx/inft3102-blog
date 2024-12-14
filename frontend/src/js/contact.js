@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
       setStatus("Thank you for your message. We will get back to you soon!");
       form.reset();
     } catch (error) {
-      console.error("Error:", error);
       setStatus("Failed to submit form. Please try again.", true);
     } finally {
       setLoading(false);
