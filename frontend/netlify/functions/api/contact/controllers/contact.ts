@@ -17,7 +17,7 @@ export default factories.createCoreController(
           // Prepare admin notification email
           const adminMsg = {
             to: "dalthiennhanontop@gmail.com",
-            from: "dalthiennhanontop@gmail.com", // Must be verified in SendGrid
+            from: "dalthiennhanontop@gmail.com",
             subject: `New Contact Form Submission: ${contactData.subject}`,
             html: `
               <h2>New Contact Form Submission</h2>
@@ -33,7 +33,7 @@ export default factories.createCoreController(
           // Prepare user confirmation email
           const userMsg = {
             to: contactData.email,
-            from: "dalthiennhanontop@gmail.com", // Must be verified in SendGrid
+            from: "dalthiennhanontop@gmail.com",
             subject: "Thank you for contacting us",
             html: `
               <h2>Thank you for contacting us</h2>
