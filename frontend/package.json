@@ -10,6 +10,7 @@
     "@11ty/eleventy": "^3.0.0",
     "@11tyrocks/eleventy-plugin-emoji-readtime": "^1.0.0",
     "@sendgrid/mail": "^7.7.0",
+    "axios": "^1.7.9",
     "dotenv": "^16.3.1",
     "luxon": "^3.4.4",
     "markdown-it": "^14.0.0",
