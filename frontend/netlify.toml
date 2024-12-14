@@ -4,8 +4,8 @@
   publish = "dist"
   functions = "netlify/functions"
 
-[build.processing]
-  skip_processing = true  # Add this to skip post-processing
-
 [build.environment]
   NODE_VERSION = "18"
+
+[build.processing]
+  skip_processing = true
