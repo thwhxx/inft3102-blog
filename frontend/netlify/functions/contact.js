@@ -1,4 +1,3 @@
-// frontend/netlify/functions/contact.js
 const sgMail = require("@sendgrid/mail");
 
 exports.handler = async (event, context) => {
@@ -14,7 +13,7 @@ exports.handler = async (event, context) => {
     };
   }
 
-  // Only allow POST method
+  // Only allow POST
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -24,70 +23,51 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Set SendGrid API key
+    // Set SendGrid API key from environment variable
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    // Parse the incoming request body
     const { data } = JSON.parse(event.body);
 
     // Validate required fields
-    if (!data.name || !data.email || !data.subject || !data.message) {
+    if (!data.name || !data.email || !data.message) {
       return {
         statusCode: 400,
         body: JSON.stringify({
-          message: "Please fill in all required fields",
+          message: "Name, email, and message are required",
         }),
         headers: { "Access-Control-Allow-Origin": "*" },
       };
     }
 
-    // Email notification to admin
-    const adminEmail = {
-      to: process.env.ADMIN_EMAIL, // Add this to your Netlify environment variables
-      from: process.env.SENDGRID_VERIFIED_SENDER, // Add this to your Netlify environment variables
-      subject: `New Contact Form Submission: ${data.subject}`,
+    // Prepare email to admin
+    const adminMail = {
+      to: process.env.ADMIN_EMAIL,
+      from: process.env.SENDGRID_FROM_EMAIL,
+      subject: `New Contact Form Submission: ${data.subject || "No Subject"}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2>New Contact Form Submission</h2>
-          <ul style="list-style: none; padding: 0;">
-            <li><strong>Name:</strong> ${data.name}</li>
-            <li><strong>Email:</strong> ${data.email}</li>
-            <li><strong>Phone:</strong> ${data.phone || "Not provided"}</li>
-            <li><strong>Subject:</strong> ${data.subject}</li>
-          </ul>
-          <div style="margin-top: 20px;">
-            <strong>Message:</strong>
-            <p style="white-space: pre-wrap;">${data.message}</p>
-          </div>
-        </div>
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
+        <p><strong>Subject:</strong> ${data.subject || "Not provided"}</p>
+        <p><strong>Message:</strong><br>${data.message}</p>
       `,
     };
 
-    // Auto-reply to user
-    const userEmail = {
+    // Prepare auto-reply email
+    const autoReply = {
       to: data.email,
-      from: process.env.SENDGRID_VERIFIED_SENDER,
-      subject: "Thank you for contacting us",
+      from: process.env.SENDGRID_FROM_EMAIL,
+      subject: "Thank you for your message",
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2>Thank you for reaching out!</h2>
-          <p>Dear ${data.name},</p>
-          <p>We have received your message and appreciate you contacting us. Here's a copy of your submission:</p>
-          
-          <div style="background-color: #f9f9f9; padding: 20px; margin: 20px 0; border-radius: 5px;">
-            <p><strong>Subject:</strong> ${data.subject}</p>
-            <p><strong>Message:</strong></p>
-            <p style="white-space: pre-wrap;">${data.message}</p>
-          </div>
-          
-          <p>We will review your message and get back to you as soon as possible.</p>
-          <p>Best regards,<br>Your Team Name</p>
-        </div>
+        <p>Dear ${data.name},</p>
+        <p>Thank you for contacting us. We have received your message and will get back to you soon.</p>
+        <p>Best regards,<br>Anh Thu Huynh</p>
       `,
     };
 
     // Send both emails
-    await Promise.all([sgMail.send(adminEmail), sgMail.send(userEmail)]);
+    await Promise.all([sgMail.send(adminMail), sgMail.send(autoReply)]);
 
     return {
       statusCode: 200,
@@ -97,7 +77,7 @@ exports.handler = async (event, context) => {
       headers: { "Access-Control-Allow-Origin": "*" },
     };
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Function error:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({
